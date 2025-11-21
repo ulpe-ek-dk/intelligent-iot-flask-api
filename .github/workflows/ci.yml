@@ -27,3 +27,7 @@ jobs:
       - name: Tjek at koden kan importeres (kompileres)
         run: |
           python -m compileall .
+
+      - name: Kør pytest
+        run: |
+          pytest

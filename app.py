@@ -1,13 +1,16 @@
-from flask import Flask, jsonify, request
-import mysql.connector
-import os
-from dotenv import load_dotenv
+from flask import Flask, jsonify, request # Flask web framework
+import mysql.connector # MySQL database connector
+import os # miljøvariabler
+from dotenv import load_dotenv # indlæs .env filer
 
-load_dotenv()
+load_dotenv() # indlæs miljøvariabler fra .env fil
 
-app = Flask(__name__)
+app = Flask(__name__) # opret Flask app
 
-def get_connection():
+def add(a, b): # simpel funktion til CI testning
+    return a + b
+
+def get_connection(): # Opret forbindelse til MySQL-databasen
     return mysql.connector.connect(
         host=os.getenv("DB_HOST"),
         user=os.getenv("DB_USER"),          
@@ -167,6 +170,6 @@ def delete_device(device_id):
 
     return jsonify({"message": f"Device {device_id} deleted"})
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+if __name__ == "__main__": # kør Flask app
+    app.run(host="0.0.0.0", debug=True) # kør på alle interfaces i debug mode
 
