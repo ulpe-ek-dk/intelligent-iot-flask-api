@@ -16,8 +16,8 @@ def get_connection():
     )
 
 # CI test: bevidst syntaksfejl
-def ci_test_function(
-    return "this will break"
+#def ci_test_function(
+#   return "this will break"
 
 # ---------- BASIC ROUTES ----------
 @app.route("/ping", methods=["GET"])
