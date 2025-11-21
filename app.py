@@ -17,7 +17,7 @@ def get_connection():
 
 @app.route("/ping", methods=["GET"])
 def ping():
-    return "pong from flask in docker"
+    return "pong from Intelligent IoT Flask API in Docker"
 
 @app.route("/")
 def index():
