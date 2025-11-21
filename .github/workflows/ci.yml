@@ -31,3 +31,30 @@ jobs:
       - name: Kør pytest
         run: |
           pytest
+
+build-and-push-image:
+    # Kør kun ved push til main (ikke ved pull_request)
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Tjek kode ud
+        uses: actions/checkout@v4
+
+      - name: Log ind på GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Byg og push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/ulpe-ek-dk/intelligent-iot-flask-api:latest
