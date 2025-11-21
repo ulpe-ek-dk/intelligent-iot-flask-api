@@ -15,6 +15,11 @@ def get_connection():
         database=os.getenv("DB_NAME") 
     )
 
+# CI test: bevidst syntaksfejl
+def ci_test_function(
+    return "this will break"
+
+# ---------- BASIC ROUTES ----------
 @app.route("/ping", methods=["GET"])
 def ping():
     return "pong from Intelligent IoT Flask API in Docker"
