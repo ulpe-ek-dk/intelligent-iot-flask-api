@@ -31,6 +31,10 @@ def ping():
 def index():
     return "Mini API med MySQL kører. Prøv /api/devices"
 
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"}), 200
+
 # ---------- DEVICES API (Intelligent IoT Solutions case) ----------
 
 @app.route("/api/devices", methods=["GET"])
