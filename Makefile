@@ -3,17 +3,13 @@
 # Brug: make <kommando>
 # =============================================================
 
-# Lokalt: byg og kør med hot-reload
+# Lokalt: byg og kør med hot-reload (genstarter ved kodeændringer)
 dev:
 	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local up --build
 
-# Lokalt: kør uden at genbygge
-up:
-	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local up
-
 # Stop alle containere
 down:
-	docker compose down
+	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local down
 
 # Stop og slet volumes (rydder DB)
 clean:
@@ -34,7 +30,7 @@ remote-down:
 
 # Vis kørende containere og logs
 status:
-	docker compose ps
+	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local ps
 
 logs:
 	docker compose logs -f api
