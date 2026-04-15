@@ -2,7 +2,7 @@
 services:
   api:
     build: .                  # Byg fra Dockerfile i stedet for at pulle image
-    image: ${IMAGE_NAME}:${IMAGE_TAG:-latest}
+    image: intelligent-iot-flask-api:latest
     volumes:
       - .:/app                # Hot-reload: kodeændringer slår igennem uden rebuild
     command: ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--worker-tmp-dir", "/tmp", "--reload", "app:app"]
