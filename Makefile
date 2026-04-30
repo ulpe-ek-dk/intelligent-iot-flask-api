@@ -7,6 +7,9 @@
 dev:
 	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local up --build
 
+devobs:
+	docker compose -f docker-compose.yml -f docker-compose.local.yml -f docker-compose.observability.yml --env-file .env.local up --build
+
 # Stop alle containere
 down:
 	docker compose -f docker-compose.yml -f docker-compose.local.yml --env-file .env.local down
