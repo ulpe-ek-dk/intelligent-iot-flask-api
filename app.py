@@ -19,8 +19,8 @@ def get_connection(): # Opret forbindelse til MySQL-databasen
     )
 
 # CI test: bevidst syntaksfejl
-def ci_test_function(
-   return "this will break"
+#def ci_test_function(
+#   return "this will break"
 
 # ---------- BASIC ROUTES ----------
 @app.route("/ping", methods=["GET"])
