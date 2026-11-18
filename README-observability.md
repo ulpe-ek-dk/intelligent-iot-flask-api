@@ -12,17 +12,12 @@ MySQL DB   ◄── mysqld-exporter ──►  Prometheus
 
 ## Kom i gang
 
-### 1. Byg image lokalt (første gang)
+### Brug target i make file til at bygge hele stacken incl. Grafana
 ```bash
-docker build -t intelligent-iot-flask-api:latest .
+make devobs
 ```
 
-### 2. Start hele stacken
-```bash
-docker compose up -d
-```
-
-### 3. Åbn services
+### 2. Åbn services
 | Service    | URL                          |
 |------------|------------------------------|
 | Flask API  | http://localhost:5005        |
@@ -30,7 +25,7 @@ docker compose up -d
 | Prometheus | http://localhost:9090        |
 | /metrics   | http://localhost:5005/metrics|
 
-### 4. Log ind i Grafana
+### 3. Log ind i Grafana
 - Brugernavn: `admin`
 - Adgangskode: `admin`
 
