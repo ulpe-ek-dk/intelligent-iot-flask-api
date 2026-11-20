@@ -62,15 +62,15 @@ def count_online_devices():
 device_status_gauge.set_function(count_online_devices)
 
 # ---------- BASIC ROUTES ----------
-@app.route("/ping", methods=["GET"])
+@app.route("/ping", methods=["GET"])    # Endpoint til ping pong test
 def ping():
     return "pong from Intelligent IoT Flask API in Docker"
 
-@app.route("/")
+@app.route("/") # Endpoint til roden af API'et
 def index():
     return "Mini API med MySQL kører. Prøv /api/devices"
 
-@app.route("/health", methods=["GET"])
+@app.route("/health", methods=["GET"])  # Endpoint for health check
 def health():
     return jsonify({"status": "ok"}), 200
 
@@ -114,8 +114,15 @@ def get_device(device_id):
         return jsonify({"error": "Device not found"}), 404
 
 @app.route("/api/devices", methods=["POST"])
+<<<<<<< HEAD
 def create_device():
     """Opret ny IoT-enhed"""
+=======
+def create_device():    # Simpelt CRUD (transaction script) endpoint, ikke DDD adfærd
+    """
+    Opret ny IoT-enhed
+    """
+>>>>>>> origin/main
     data = request.get_json()
     required_fields = ["name", "location", "status", "customer_name"]
     if not data or any(f not in data for f in required_fields):
@@ -149,8 +156,10 @@ def create_device():
     }), 201
 
 @app.route("/api/devices/<int:device_id>", methods=["PUT"])
-def update_device(device_id):
-    """Opdatér eksisterende IoT-enhed"""
+def update_device(device_id):   # Simpelt CRUD (transaction script) endpoint, ikke DDD adfærd
+    """
+    Opdatér eksisterende IoT-enhed
+    """
     data = request.get_json()
     required_fields = ["name", "location", "status", "customer_name"]
     if not data or any(f not in data for f in required_fields):
