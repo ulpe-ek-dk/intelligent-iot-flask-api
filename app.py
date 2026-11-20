@@ -44,8 +44,9 @@ def get_connection():
         database=os.getenv("DB_NAME")
     )
 
-def update_online_gauge():
-    """Opdatér gauge med antal online devices — kaldes ved GET /api/devices"""
+def count_online_devices():
+    """Kaldes ved hver scrape af /metrics – læser antal online devices fra DB.
+    Beregnes ved scrape, så alle gunicorn-workers rapporterer samme værdi."""
     try:
         conn = get_connection()
         cursor = conn.cursor()
@@ -53,9 +54,12 @@ def update_online_gauge():
         count = cursor.fetchone()[0]
         cursor.close()
         conn.close()
-        device_status_gauge.set(count)
+        return count
     except Exception:
         db_errors_counter.labels(operation="gauge_update").inc()
+        return float("nan")
+
+device_status_gauge.set_function(count_online_devices)
 
 # ---------- BASIC ROUTES ----------
 @app.route("/ping", methods=["GET"])
@@ -81,7 +85,6 @@ def get_devices():
         rows = cursor.fetchall()
         cursor.close()
         conn.close()
-        update_online_gauge()
         return jsonify(rows)
     except Exception as e:
         db_errors_counter.labels(operation="get").inc()
